@@ -8,9 +8,7 @@ const btnBaterPonto = document.getElementById("btn-bater-ponto");
 btnBaterPonto.addEventListener("click", register)
 
 const btnFecharPonto = document.getElementById("btn-fechar-dialog");
-btnFecharPonto.addEventListener("click", exit
-)
-
+btnFecharPonto.addEventListener("click", () => {dialogPonto.close();});
 
 diaSemana.textContent = getWeekDay();
 diaMesAno.textContent = getCurrentDate();
@@ -56,13 +54,15 @@ function printCurrentHour(){
 }
 function getCurrentDate() {
     const date = new Date();
-    const dia = date.getDate();
+    let dia = date.getDate();
     const ano = date.getFullYear();
     let mes = date.getMonth();
     if (mes < 10) {
         mes = "0" + (mes + 1 )
     };
-
+    if (dia < 10) {
+        dia = "0" + dia
+    }
     return dia + "/" + mes + "/" + ano;
     
 }
@@ -71,9 +71,8 @@ setInterval(printCurrentHour, 1000);
 
 
 function register() {
+    document.getElementById("dialog-data").textContent = "Data :" + getCurrentDate();
+    document.getElementById("dialog-hora").textContent = "Hora : " + getCurrentHour();
     dialogPonto.showModal();
 };
 
-function exit() {
-    dialogPonto.close();
-};
