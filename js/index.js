@@ -1,13 +1,17 @@
 const diaSemana = document.getElementById("dia-semana");
 const diaMesAno = document.getElementById("dias-mes-ano");
 const horaMinSeg = document.getElementById("hora-min-seg");
+const dialogPonto = document.getElementById("dialog-ponto");
+
+
 
 const btnBaterPonto = document.getElementById("btn-bater-ponto");
 btnBaterPonto.addEventListener("click", register)
 
 
 
-const dialogPonto = document.getElementById("dialog-ponto");
+const btnFecharPonto = document.getElementById("btn-fechar-ponto");
+btnFecharPonto.addEventListener("click", exit)
 
 
 diaSemana.textContent = getWeekDay();
