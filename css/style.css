@@ -3,6 +3,9 @@
 
 }
 
-#dialog-ponto {
+#btn-fechar-dialog {
     position: absolute;
+    top: 0;
+    right: 0;
+
 }

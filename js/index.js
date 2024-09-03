@@ -4,14 +4,12 @@ const horaMinSeg = document.getElementById("hora-min-seg");
 const dialogPonto = document.getElementById("dialog-ponto");
 
 
-
 const btnBaterPonto = document.getElementById("btn-bater-ponto");
 btnBaterPonto.addEventListener("click", register)
 
-
-
-const btnFecharPonto = document.getElementById("btn-fechar-ponto");
-btnFecharPonto.addEventListener("click", exit)
+const btnFecharPonto = document.getElementById("btn-fechar-dialog");
+btnFecharPonto.addEventListener("click", exit
+)
 
 
 diaSemana.textContent = getWeekDay();
@@ -78,4 +76,4 @@ function register() {
 
 function exit() {
     dialogPonto.close();
-}
+};
