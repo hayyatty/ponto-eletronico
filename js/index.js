@@ -5,8 +5,20 @@ const horaMinSeg = document.getElementById("hora-min-seg");
 const btnBaterPonto = document.getElementById("btn-bater-ponto");
 btnBaterPonto.addEventListener("click", register);
 
+const dialogPonto = document.getElementById("dialog-ponto");
+
+const btnDialogFechar = document.getElementById("btn-dialog-fechar");
+btnDialogFechar.addEventListener("click", () => {
+    dialogPonto.close();
+});
+
 diaSemana.textContent = getWeekDay();
 diaMesAno.textContent = getCurrentDate();
+
+
+function register() {
+    dialogPonto.showModal();
+}
 
 function getWeekDay() {
     const date = new Date();
@@ -46,10 +58,5 @@ function printCurrentHour() {
     horaMinSeg.textContent = getCurrentHour();
 }
 
-function register() {
-    // Abrir <dialog> com, no mínimo, 4 botões
-
-    alert("Bater Ponto!");
-}
 
 setInterval(printCurrentHour, 1000);
