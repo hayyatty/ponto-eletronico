@@ -12,10 +12,14 @@ btnDialogFechar.addEventListener("click", () => {
     dialogPonto.close();
 });
 
+// Quando ele não sera um array ?
+let registersLocalStorage = getRegisterLocalStorage();
+
 // TO-DO:
 // A data e hora do dialog devem ser atualizadas automaticamente
 // a hora a cada segundo e a data sempre 00:00:00
 // o setInterval do dialog tem que ser desativado ao fechar o dialog
+
 const dialogData = document.getElementById("dialog-data");
 dialogData.textContent = "Data: " + getCurrentDate();
 
@@ -35,18 +39,21 @@ function getCurrentPosition() {
 const btnDialogBaterPonto = document.getElementById("btn-dialog-bater-ponto");
 btnDialogBaterPonto.addEventListener("click", () => {
 
+    let typeRegister = document.getElementById("tipos-ponto").value;
+
     let ponto = {
         "data": getCurrentDate(),
         "hora": getCurrentHour(),
         "localizacao": getCurrentPosition(),
         "id": 1,
-        "tipo": document.getElementById("tipos-ponto").value
+        "tipo": typeRegister
     }
 
     console.log(ponto);
 
-    saveRegisterLocalStorage(JSON.stringify(ponto));
+    saveRegisterLocalStorage(ponto);
 
+    localStorage.setItem("lastTypeRegister", typeRegister);
     dialogPonto.close();
 
     // TO-DO:
@@ -58,11 +65,27 @@ btnDialogBaterPonto.addEventListener("click", () => {
 function saveRegisterLocalStorage(register) {
     // TO-DO:
     // salvar array de objetos
-    localStorage.setItem("register", register);
+    registersLocalStorage.push(register) //Array
+    localStorage.setItem("register", JSON.stringify(registersLocalStorage));
 }
 
 
+// ESSA FUNÇÃO DEVE RETORNAR SEMPRE UM ARRAY MESMO QUE SEJA VAZIO
+function getRegisterLocalStorage () {
+    let  registers = localStorage.getItem("register") 
+    if (!registers) {
+        return [];
+    }
+
+    //TO-DO 
+    // garantir que sera retornado um array e n uma string
+    return JSON.parse(registers);
+}
+
 function register() {
+    dialogData.textContent = "Data: " + getCurrentDate();
+    dialogHora.textContent = "Hora: " + getCurrentHour();
+    
     dialogPonto.showModal();
 }
 
@@ -73,13 +96,8 @@ function getWeekDay() {
 }
 
 function getCurrentHour() {
-    // TO-DO:
-    // Considerar os métodos abaixo para incluir zeros em numeros < 10
-    // padStart()
-    // slice()
-    // formatos de hora considerando o locale do usuário
     const date = new Date();
-    return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    return String(date.getHours()).padStart(2, '0') + ":" + String(date.getMinutes()).padStart(2, '0') + ":" + String(date.getSeconds()).padStart(2, '0');
 }
 
 
@@ -106,5 +124,5 @@ function printCurrentHour() {
     horaMinSeg.textContent = getCurrentHour();
 }
 
-
+printCurrentHour();
 setInterval(printCurrentHour, 1000);
