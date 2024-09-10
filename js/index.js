@@ -12,7 +12,10 @@ btnDialogFechar.addEventListener("click", () => {
     dialogPonto.close();
 });
 
-
+// TO-DO:
+// A data e hora do dialog devem ser atualizadas automaticamente
+// a hora a cada segundo e a data sempre 00:00:00
+// o setInterval do dialog tem que ser desativado ao fechar o dialog
 const dialogData = document.getElementById("dialog-data");
 dialogData.textContent = "Data: " + getCurrentDate();
 
@@ -31,23 +34,32 @@ function getCurrentPosition() {
 
 const btnDialogBaterPonto = document.getElementById("btn-dialog-bater-ponto");
 btnDialogBaterPonto.addEventListener("click", () => {
-    
-    let dataAtual = getCurrentDate();
-    let horaAtual = getCurrentHour();
-    let localizacao = getCurrentPosition();
-    let tipoPonto = document.getElementById("tipos-ponto").value;
 
     let ponto = {
-        "data": dataAtual,
-        "hora": horaAtual,
-        "localizacao": localizacao,
+        "data": getCurrentDate(),
+        "hora": getCurrentHour(),
+        "localizacao": getCurrentPosition(),
         "id": 1,
-        "tipo": tipoPonto
+        "tipo": document.getElementById("tipos-ponto").value
     }
 
     console.log(ponto);
 
+    saveRegisterLocalStorage(JSON.stringify(ponto));
+
+    dialogPonto.close();
+
+    // TO-DO:
+    // Fechar o dialog ao bater ponto e apresentar, de alguma forma
+    // uma confirmação (ou não) para o usuário
 });
+
+
+function saveRegisterLocalStorage(register) {
+    // TO-DO:
+    // salvar array de objetos
+    localStorage.setItem("register", register);
+}
 
 
 function register() {
@@ -61,6 +73,7 @@ function getWeekDay() {
 }
 
 function getCurrentHour() {
+    // TO-DO:
     // Considerar os métodos abaixo para incluir zeros em numeros < 10
     // padStart()
     // slice()
@@ -71,6 +84,7 @@ function getCurrentHour() {
 
 
 function getCurrentDate() {
+    // TO-DO:
     // Alterar a solução para considerar padStart ou slice
     // Considerar formatos diferentes da data, conforme localização
     // do usuário dd/mm/aaaa, mm/dd/aaaa, aaaa/mm/dd, aaaa.mm.dd
